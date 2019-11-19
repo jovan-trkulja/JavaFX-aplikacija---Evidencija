@@ -14,8 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import slikeKlasa.Images;
 
 public class PozornicaUpdate extends Application {
@@ -74,6 +72,7 @@ public class PozornicaUpdate extends Application {
 			a.setTitle("Greška");
 			a.setContentText("Izabrana funkcija trenutno nije dostupna!");
 			a.initModality(Modality.APPLICATION_MODAL);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.showAndWait();
 			return;
 			
@@ -114,7 +113,7 @@ public class PozornicaUpdate extends Application {
 		a.setTitle("Napuštate prozor");
 		a.setHeaderText("Sigurno napuštate aplikaciju?");
 		a.initModality(Modality.APPLICATION_MODAL);
-		a.initStyle(StageStyle.UNDECORATED);
+		((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 		Optional<ButtonType> btn = a.showAndWait();
 		
 		if(btn.isPresent() && btn.get() == ButtonType.OK) {

@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import controller.Controller;
+import controller.Wait;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +23,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import model.Ispit;
 import model.Predispitnaobaveza;
 import model.Predmet;
@@ -55,7 +55,9 @@ public class StatistikaPredmeta extends Application {
 		
 		postaviVelicinu();
 		
+		Wait.showDialog();
 		bp.setCenter(initGui());
+		Wait.closeDialog();
 		
 		zatvori.setOnAction(this::zatvaranje);
 		potvrdi.setOnAction(this::obrada);
@@ -103,9 +105,10 @@ public class StatistikaPredmeta extends Application {
 	private void zatvaranje(ActionEvent event) {
 		
 		Alert a = new Alert(Alert.AlertType.CONFIRMATION);
+		a.initModality(Modality.APPLICATION_MODAL);
 		a.setTitle("Napuštate prozor");
 		a.setHeaderText("Sigurno napuštate aplikaciju?");
-		a.initModality(Modality.APPLICATION_MODAL);
+		((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 
 		Optional<ButtonType> btn = a.showAndWait();
 		

@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 import controller.Controller;
+import controller.Wait;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -24,10 +25,8 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Predispitnaobaveza;
 import model.Predmet;
-
 import slikeKlasa.Images;
 
 public class UnosPredObav extends Application {
@@ -59,7 +58,9 @@ public class UnosPredObav extends Application {
 		BorderPane bp = new BorderPane();
 		bp.setBackground(Images.getBackgroundKLKIspit());
 		
+		Wait.showDialog();
 		bp.setCenter(initGui());
+		Wait.closeDialog();
 		
 		zatvori.setOnAction(this::zatvaranje);
 		potvrdi.setOnAction(this::upis);
@@ -80,10 +81,10 @@ public class UnosPredObav extends Application {
 		gp.setPadding(new Insets(20));
 		
 		gp.add(lbl1, 0, 0);
-		
+
 		getPredmets();
 		comboP.getSelectionModel().select(0);
-		
+
 		gp.add(comboP, 1, 0);
 		
 		gp.add(lbl2, 0, 1);
@@ -125,7 +126,8 @@ public class UnosPredObav extends Application {
 			a.setTitle("Upisivanje");
 			a.setHeaderText("Uneti podaci biæe upisani u bazu. Potvrðujem?");
 			a.initModality(Modality.APPLICATION_MODAL);
-		
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
+			
 			Optional<ButtonType> btn = a.showAndWait();
 		
 			if(btn.isPresent() && btn.get() == ButtonType.OK) {
@@ -137,6 +139,7 @@ public class UnosPredObav extends Application {
 			Alert a = new Alert(Alert.AlertType.ERROR);
 			a.setTitle("Greška");
 			a.setHeaderText("Niste uneli tražene podatke");
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.initModality(Modality.APPLICATION_MODAL);
 			a.showAndWait();
 			oboj();
@@ -219,6 +222,7 @@ public class UnosPredObav extends Application {
 			Alert a = new Alert(Alert.AlertType.ERROR);
 			a.setTitle("Greška");
 			a.setHeaderText("Bodovi moraju biti numerièki podatak");
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.initModality(Modality.APPLICATION_MODAL);
 			a.showAndWait();
 			return;
@@ -233,6 +237,7 @@ public class UnosPredObav extends Application {
 			a.setTitle("Upozorenje");
 			a.setHeaderText("Niste uneli datum predispitne obaveze. Ipak nastaviti?");
 			a.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.getButtonTypes().add(da);
 			a.getButtonTypes().add(ne);
 			a.initModality(Modality.APPLICATION_MODAL);
@@ -279,6 +284,7 @@ public class UnosPredObav extends Application {
 			Alert ale = new Alert(Alert.AlertType.INFORMATION);
 			ale.setTitle("Upisivanje");
 			ale.setHeaderText("Uspešno ste dodali predispitnu obavezu za izabrani predmet!");
+			((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			ale.initModality(Modality.APPLICATION_MODAL);
 			ale.showAndWait();
 			pozornica.close();
@@ -323,7 +329,8 @@ public class UnosPredObav extends Application {
 		a.setTitle("Napuštate prozor");
 		a.setHeaderText("Sigurno napuštate aplikaciju?");
 		a.initModality(Modality.APPLICATION_MODAL);
-		a.initStyle(StageStyle.UNDECORATED);
+		((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
+		
 		Optional<ButtonType> btn = a.showAndWait();
 		
 		if(btn.isPresent() && btn.get() == ButtonType.OK) {

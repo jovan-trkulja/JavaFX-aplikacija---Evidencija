@@ -2,6 +2,7 @@ package controller;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Stream;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
@@ -186,6 +187,18 @@ public class Controller {
 			if(em != null)
 				em.close();
 		}
+	}
+	
+	public static Stream<Ispit> getIspitStream() {
+		
+		em = PersistenceUtil.getEntityManager();
+		
+		String upit = "select i from Ispit i where i.ocena > 5";
+		
+		return em.createQuery(upit, Ispit.class)
+				 .getResultList()
+				 .stream();
+		
 	}
 	
 	public static boolean updateColloquim(Predispitnaobaveza po, double bodovi) {

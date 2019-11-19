@@ -18,9 +18,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Predmet;
-
 import slikeKlasa.Images;
 
 public class UnosPredmeta extends Application {
@@ -54,6 +52,7 @@ public class UnosPredmeta extends Application {
 		
 		BorderPane bp = new BorderPane();
 		bp.setBackground(Images.getBackgroundPredmet());
+		
 		bp.setLeft(initGui());
 		
 		zatvori.setOnAction(this::zatvaranje);
@@ -167,7 +166,7 @@ public class UnosPredmeta extends Application {
 		a.setTitle("Napuštate prozor");
 		a.setHeaderText("Sigurno napuštate aplikaciju?");
 		a.initModality(Modality.APPLICATION_MODAL);
-		a.initStyle(StageStyle.UNDECORATED);
+		((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 		Optional<ButtonType> btn = a.showAndWait();
 		
 		if(btn.isPresent() && btn.get() == ButtonType.OK) {
@@ -196,7 +195,7 @@ public class UnosPredmeta extends Application {
 			a.setTitle("Upisivanje");
 			a.setHeaderText("Uneti podaci biæe upisani u bazu. Potvrðujem?");
 			a.initModality(Modality.APPLICATION_MODAL);
-		
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			Optional<ButtonType> btn = a.showAndWait();
 		
 			if(btn.isPresent() && btn.get() == ButtonType.OK) {
@@ -208,6 +207,7 @@ public class UnosPredmeta extends Application {
 			a.setTitle("Greška");
 			a.setHeaderText("Niste uneli tražene podatke");
 			a.initModality(Modality.APPLICATION_MODAL);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.showAndWait();
 			oboj();
 			return;
@@ -319,6 +319,7 @@ public class UnosPredmeta extends Application {
 			ale.setTitle("Upisivanje");
 			ale.setHeaderText("Uspešno ste upisali predmet u bazu!");
 			ale.initModality(Modality.APPLICATION_MODAL);
+			((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			ale.showAndWait();
 			pozornica.close();
 			return;
@@ -328,6 +329,7 @@ public class UnosPredmeta extends Application {
 			al.setTitle("Greška");
 			al.setHeaderText("Predmet nije upisan u bazu. Došlo je do greške!");
 			al.initModality(Modality.APPLICATION_MODAL);
+			((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			al.showAndWait();
 			return;
 		}

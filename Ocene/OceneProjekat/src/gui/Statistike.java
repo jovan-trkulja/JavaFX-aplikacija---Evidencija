@@ -6,6 +6,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import controller.Controller;
+import controller.Wait;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -24,7 +25,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Ispit;
 import model.Predispitnaobaveza;
 import model.Predmet;
@@ -47,18 +47,23 @@ public class Statistike extends Application {
 	
 	private Label lbl1 = new Label("Izaberite predmet, a nakon toga izaberite akciju");
 	private Label lbl2 = new Label("Trenutno ostvaren broj ESPB bodova -> ");
+	private Label lbl3 = new Label("Trenutna proseèna ocena -> ");
 	
-	private List<Predmet> pred = Controller.getSubjects();
+	private List<Predmet> pred;
 	
 	@Override
 	public void start(Stage stage) throws Exception {
 		
+		Wait.showDialog();
+		pred = Controller.getSubjects();
 		postaviVelicinu();
 		izracunaj();
+		Wait.closeDialog();
 		
 		this.pozornica = stage;
 		
 		BorderPane bp = new BorderPane();
+		
 		bp.setCenter(initGui());
 		
 		bp.setBackground(Images.getBackgroundStatistika());
@@ -97,16 +102,18 @@ public class Statistike extends Application {
 		gp.add(prikazKLK, 0, 2);
 		gp.add(prikaziIspite, 0, 3);
 		gp.add(lbl2, 0, 4);
+		gp.add(lbl3, 0, 5);
 		
 		gp.add(new Label("|"), 1, 0);
 		gp.add(new Label("|"), 1, 1);
 		gp.add(new Label("|"), 1, 2);
 		gp.add(new Label("|"), 1, 3);
 		gp.add(new Label("|"), 1, 4);
+		gp.add(new Label("|"), 1, 5);
 		
-		gp.add(potvrdi, 2, 0);
-		gp.add(ponisti, 2, 2);
-		gp.add(zatvori, 2, 4);
+		gp.add(potvrdi, 2, 1);
+		gp.add(ponisti, 2, 3);
+		gp.add(zatvori, 2, 5);
 		
 		return gp;
 	}
@@ -131,6 +138,13 @@ public class Statistike extends Application {
 		String text = lbl2.getText() + broj;
 		
 		lbl2.setText(text);
+		
+		double prosek = Controller.getIspitStream()
+				                  .collect(Collectors.averagingDouble(Ispit::getOcena));
+		
+		String txt = lbl3.getText() + String.format("%.2f", (double)prosek);
+		
+		lbl3.setText(txt);
 		
 	}
 	
@@ -162,7 +176,7 @@ public class Statistike extends Application {
 		a.setTitle("Napuštate prozor");
 		a.setHeaderText("Sigurno napuštate aplikaciju?");
 		a.initModality(Modality.APPLICATION_MODAL);
-		a.initStyle(StageStyle.UNDECORATED);
+		((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 		Optional<ButtonType> btn = a.showAndWait();
 		
 		if(btn.isPresent() && btn.get() == ButtonType.OK) {
@@ -417,6 +431,10 @@ public class Statistike extends Application {
 		lbl2.setStyle("-fx-text-fill: red;"
 		        	+ "-fx-font-weight: bold;"
 		        	+ "-fx-font-size: 16;");
+		
+		lbl3.setStyle("-fx-text-fill: red;"
+	        	+ "-fx-font-weight: bold;"
+	        	+ "-fx-font-size: 16;");
 		
 	}
 

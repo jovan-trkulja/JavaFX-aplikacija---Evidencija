@@ -8,6 +8,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import controller.Controller;
+import controller.Wait;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,7 +26,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Ispit;
 import model.Predispitnaobaveza;
 import model.Predmet;
@@ -60,7 +60,9 @@ public class UnosIspit extends Application {
 		BorderPane bp = new BorderPane();
 		bp.setBackground(Images.getBackgroundKLKIspit());
 		
+		Wait.showDialog();
 		bp.setCenter(initGui());
+		Wait.closeDialog();
 		
 		zatvori.setOnAction(this::zatvaranje);
 		potvrdi.setOnAction(this::upis);
@@ -125,6 +127,7 @@ public class UnosIspit extends Application {
 			Alert a = new Alert(Alert.AlertType.CONFIRMATION);
 			a.setTitle("Upisivanje");
 			a.setHeaderText("Uneti podaci biæe upisani u bazu. Potvrðujem?");
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.initModality(Modality.APPLICATION_MODAL);
 		
 			Optional<ButtonType> btn = a.showAndWait();
@@ -139,6 +142,7 @@ public class UnosIspit extends Application {
 			a.setTitle("Greška");
 			a.setHeaderText("Niste uneli tražene podatke");
 			a.initModality(Modality.APPLICATION_MODAL);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.showAndWait();
 			oboj();
 			return;
@@ -226,6 +230,7 @@ public class UnosIspit extends Application {
 			a.setTitle("Greška");
 			a.setHeaderText("Bodovi i/ili ocena moraju biti numerièki podatak");
 			a.initModality(Modality.APPLICATION_MODAL);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.showAndWait();
 			return;
 		}
@@ -241,6 +246,7 @@ public class UnosIspit extends Application {
 			a.setTitle("Upozorenje");
 			a.setHeaderText("Niste uneli datum ispita. Ipak nastaviti?");
 			a.getDialogPane().lookupButton(ButtonType.OK).setVisible(false);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.getButtonTypes().add(da);
 			a.getButtonTypes().add(ne);
 			a.initModality(Modality.APPLICATION_MODAL);
@@ -290,6 +296,7 @@ public class UnosIspit extends Application {
 			ale.setTitle("Upisivanje");
 			ale.setHeaderText("Uspešno ste dodali ispit za izabrani predmet!");
 			ale.initModality(Modality.APPLICATION_MODAL);
+			((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			ale.showAndWait();
 			pozornica.close();
 			return;
@@ -333,7 +340,7 @@ public class UnosIspit extends Application {
 		a.setTitle("Napuštate prozor");
 		a.setHeaderText("Sigurno napuštate aplikaciju?");
 		a.initModality(Modality.APPLICATION_MODAL);
-		a.initStyle(StageStyle.UNDECORATED);
+		((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 		Optional<ButtonType> btn = a.showAndWait();
 		
 		if(btn.isPresent() && btn.get() == ButtonType.OK) {

@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import controller.Controller;
+import controller.Wait;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -22,7 +23,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import model.Predmet;
 import slikeKlasa.Images;
 
@@ -55,7 +55,10 @@ public class UpdatePredmet extends Application {
 		
 		BorderPane bp = new BorderPane();
 		bp.setBackground(Images.getBackgroundKLKIspit());
+		
+		Wait.showDialog();
 		bp.setCenter(initGui());
+		Wait.closeDialog();
 		
 		izlaz.setOnAction(this::zatvaranje);
 		potvrdi.setOnAction(this::update);
@@ -111,7 +114,7 @@ public class UpdatePredmet extends Application {
 		a.setTitle("Napuštate prozor");
 		a.setHeaderText("Sigurno napuštate aplikaciju?");
 		a.initModality(Modality.APPLICATION_MODAL);
-		a.initStyle(StageStyle.UNDECORATED);
+		((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 		Optional<ButtonType> btn = a.showAndWait();
 		
 		if(btn.isPresent() && btn.get() == ButtonType.OK) {
@@ -133,6 +136,7 @@ public class UpdatePredmet extends Application {
 			a.setTitle("Greška");
 			a.setHeaderText("Nije izabran predmet!");
 			a.initModality(Modality.APPLICATION_MODAL);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.showAndWait();
 			return;
 			
@@ -190,6 +194,7 @@ public class UpdatePredmet extends Application {
 			a.setTitle("Greška");
 			a.setHeaderText("Nije izabran predmet!");
 			a.initModality(Modality.APPLICATION_MODAL);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.showAndWait();
 			return;
 			
@@ -205,6 +210,7 @@ public class UpdatePredmet extends Application {
 			a.setTitle("Greška");
 			a.setHeaderText("Niste uneli novu vrednost");
 			a.initModality(Modality.APPLICATION_MODAL);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			a.showAndWait();
 			return;
 		}
@@ -221,6 +227,7 @@ public class UpdatePredmet extends Application {
 				ale.setTitle("Ažuriranje");
 				ale.setHeaderText("Uspešno ste ažurirali predmet za odabranu akciju!");
 				ale.initModality(Modality.APPLICATION_MODAL);
+				((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				ale.showAndWait();
 				stage.close();
 				return;
@@ -229,6 +236,7 @@ public class UpdatePredmet extends Application {
 				al.setTitle("Greška");
 				al.setHeaderText("Došlo je do greške prilikom ažuriranja!");
 				al.initModality(Modality.APPLICATION_MODAL);
+				((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				al.showAndWait();
 				return;
 			}
@@ -244,6 +252,7 @@ public class UpdatePredmet extends Application {
 				al.setTitle("Greška");
 				al.setHeaderText("Uneta vrednost mora biti numerièki podatak!");
 				al.initModality(Modality.APPLICATION_MODAL);
+				((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				al.showAndWait();
 				return;
 			}
@@ -254,6 +263,7 @@ public class UpdatePredmet extends Application {
 				ale.setTitle("Ažuriranje");
 				ale.setHeaderText("Uspešno ste ažurirali predmet za odabranu akciju!");
 				ale.initModality(Modality.APPLICATION_MODAL);
+				((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				ale.showAndWait();
 				stage.close();
 				return;
@@ -262,6 +272,7 @@ public class UpdatePredmet extends Application {
 				al.setTitle("Greška");
 				al.setHeaderText("Došlo je do greške prilikom ažuriranja!");
 				al.initModality(Modality.APPLICATION_MODAL);
+				((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				al.showAndWait();
 				return;
 			}
@@ -274,6 +285,7 @@ public class UpdatePredmet extends Application {
 				ale.setTitle("Ažuriranje");
 				ale.setHeaderText("Uspešno ste ažurirali predmet za odabranu akciju!");
 				ale.initModality(Modality.APPLICATION_MODAL);
+				((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				ale.showAndWait();
 				stage.close();
 				return;
@@ -282,6 +294,7 @@ public class UpdatePredmet extends Application {
 				al.setTitle("Greška");
 				al.setHeaderText("Došlo je do greške prilikom ažuriranja!");
 				al.initModality(Modality.APPLICATION_MODAL);
+				((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				al.showAndWait();
 				return;
 			}
@@ -294,6 +307,7 @@ public class UpdatePredmet extends Application {
 				ale.setTitle("Ažuriranje");
 				ale.setHeaderText("Uspešno ste ažurirali predmet za odabranu akciju!");
 				ale.initModality(Modality.APPLICATION_MODAL);
+				((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				ale.showAndWait();
 				stage.close();
 				return;
@@ -302,6 +316,7 @@ public class UpdatePredmet extends Application {
 				al.setTitle("Greška");
 				al.setHeaderText("Došlo je do greške prilikom ažuriranja!");
 				al.initModality(Modality.APPLICATION_MODAL);
+				((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				al.showAndWait();
 				return;
 			}
@@ -316,6 +331,7 @@ public class UpdatePredmet extends Application {
 				al.setTitle("Greška");
 				al.setHeaderText("Uneta vrednost mora biti numerièki podatak!");
 				al.initModality(Modality.APPLICATION_MODAL);
+				((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				al.showAndWait();
 				return;
 			}
@@ -326,6 +342,7 @@ public class UpdatePredmet extends Application {
 				ale.setTitle("Ažuriranje");
 				ale.setHeaderText("Uspešno ste ažurirali predmet za odabranu akciju!");
 				ale.initModality(Modality.APPLICATION_MODAL);
+				((Stage) ale.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				ale.showAndWait();
 				stage.close();
 				return;
@@ -334,6 +351,7 @@ public class UpdatePredmet extends Application {
 				al.setTitle("Greška");
 				al.setHeaderText("Došlo je do greške prilikom ažuriranja!");
 				al.initModality(Modality.APPLICATION_MODAL);
+				((Stage) al.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 				al.showAndWait();
 				return;
 			}

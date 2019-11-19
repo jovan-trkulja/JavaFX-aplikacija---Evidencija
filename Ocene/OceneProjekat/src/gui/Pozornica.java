@@ -14,8 +14,6 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
-
 import slikeKlasa.Images;
 
 public class Pozornica extends Application {
@@ -46,7 +44,7 @@ public class Pozornica extends Application {
 			a.setTitle("Izlaz");
 			a.setHeaderText("Sigurno zatvarate aplikaciju?");
 			a.initModality(Modality.APPLICATION_MODAL);
-			a.initStyle(StageStyle.UNDECORATED);
+			((Stage) a.getDialogPane().getScene().getWindow()).getIcons().add(Images.getImagePozornica());
 			Optional<ButtonType> btn = a.showAndWait();
 			
 			if(btn.isPresent() && btn.get() == ButtonType.OK) {

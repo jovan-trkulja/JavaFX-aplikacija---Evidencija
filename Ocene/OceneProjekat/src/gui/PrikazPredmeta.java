@@ -3,6 +3,7 @@ package gui;
 import java.util.List;
 
 import controller.Controller;
+import controller.Wait;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -23,10 +24,13 @@ public class PrikazPredmeta extends Application {
 	@Override
 	public void start(Stage stage) throws Exception {
 		
+		Wait.showDialog();
 		ucitajPredmete();
+		Wait.closeDialog();
 		
 		BorderPane bp = new BorderPane();
 		bp.setBackground(Images.getBackground());
+		
 		bp.setCenter(initTabela());
 		
 		Scene s = new Scene(bp);
